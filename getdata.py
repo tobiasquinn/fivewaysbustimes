@@ -11,24 +11,25 @@ from datetime import timedelta, datetime
 from BeautifulSoup import BeautifulSoup
 
 class BusData:
-    def __init__(self, URLFILE):
-    # read data file urls
+    def __init__(self, URLFILE=None):
+        # read data file urls
+        # Read live data
+        if URLFILE != None:
+            self._urls = []
+            for line in open(URLFILE).readlines():
+                if line[0] != '#':
+                    self._urls.append(line.strip())
+        else:
+        # Test data
+            self._urls = [
+                    'file:data/set1/out1.html',
+                    'file:data/set1/out2.html',
+                    'file:data/set1/out3.html',
+                    'file:data/set1/out4.html',
+                    'file:data/set1/out5.html',
+                    ]
 
-    # Read live data
-        self._urls = []
-        for line in open(URLFILE).readlines():
-            if line[0] != '#':
-                self._urls.append(line.strip())
-    # Test data
-        self._urls = [
-                'file:data/set1/out1.html',
-                'file:data/set1/out2.html',
-                'file:data/set1/out3.html',
-                'file:data/set1/out4.html',
-                'file:data/set1/out5.html',
-                ]
-
-    def _getdata(self):
+    def getData(self):
         # get and scrape all the data into a list
         times = []
         for url in self._urls[:]:
@@ -61,7 +62,9 @@ class BusData:
                 times.append((busnum, destination, arrive))
                 print "%s,%s,%s" % (busnum, destination, arrive)
         # sort the list by times
-        print sorted(times, key=lambda arrive: arrive[2]) 
+        data = sorted(times, key=lambda arrive: arrive[2])
+        print data
+        return data
 
 if __name__ == '__main__':
     bd = BusData('service.urls')
