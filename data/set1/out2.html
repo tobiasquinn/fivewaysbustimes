@@ -1,0 +1,503 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<script SRC="../scripts/vlscripts.js"></script>
+        <meta name="robots" content="index,nofollow">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+	<title>Real Time Bus Information</title>
+	<link href="../dfi.css" rel="styleSheet" type="text/css">
+</head>
+
+<body alink="#ff9966">
+	<TABLE cellSpacing=0 cellPadding=0 width=640 border=0>
+		
+		<TBODY>
+			<TR>
+				<TD>&nbsp</TD>
+				<TD>&nbsp</TD>
+			</TR>
+			<tr> 
+				<td>&nbsp;</td>
+				<td valign="top" class="titelprodukte"><p>Real Time Bus Information</p>
+				</td>
+			</tr>
+			<tr> 
+				<td>&nbsp</td>
+				<td>&nbsp;</td>
+			</tr>
+
+			<tr> 
+				<td>&nbsp</td>
+				<td>
+				
+				 
+				
+				<form name="frmDFI" action="" onsubmit="return Refresh()" method="get">
+				
+				        
+				        <INPUT TYPE=HIDDEN NAME="olifServerId" value="182">
+					<INPUT TYPE=HIDDEN NAME="autorefresh" value="0"><INPUT TYPE=HIDDEN NAME="default_autorefresh" value="20">
+					<fieldset>
+					<legend><span class="pagedefault">Select a route, stop and direction for which you require information:</span></legend>
+					<BR>
+					<table border="0" cellpadding="1" cellspacing="2" bgColor="#fffff0">
+					
+					<tr>
+						
+						<td><span class="pagedefault">Route:</span></td>
+						<td width="10">&nbsp;</td>
+
+						
+						
+						<td><span class="pagedefault">Stop:</span></td>
+						<td width="10">&nbsp;</td>
+						
+
+						
+							
+							<td><span class="pagedefault">Direction:</span></td>
+							<td width="10">&nbsp;</td>
+						
+
+						
+						<td><span class="pagedefault"><NOBR>Number of trips:</NOBR></span></td>
+						<td width="10">&nbsp;</td>					
+
+					</tr>
+
+					
+					<tr>
+						
+						<td valign="top">
+							<select name="routeId" size="1" class="selection" onchange="OnLinieChanged()">
+								
+										<option value="182/1">1</option>
+		<option value="182/1A">1A</option>
+		<option value="182/2">2</option>
+		<option value="182/2A">2A</option>
+		<option value="182/2B">2B</option>
+		<option value="182/5">5</option>
+		<option value="182/5A">5A</option>
+		<option value="182/5B">5B</option>
+		<option value="182/6">6</option>
+		<option value="182/7">7</option>
+		<option value="182/11X">11X</option>
+		<option value="182/12">12</option>
+		<option value="182/12A">12A</option>
+		<option value="182/12C">12C</option>
+		<option value="182/12X">12X</option>
+		<option value="182/14">14</option>
+		<option value="182/14C">14C</option>
+		<option value="182/16">16</option>
+		<option value="182/20">20</option>
+		<option value="182/20X">20X</option>
+		<option value="182/21">21</option>
+		<option value="182/22">22</option>
+		<option value="182/22A">22A</option>
+		<option value="182/23">23</option>
+		<option value="182/24">24</option>
+		<option value="182/25">25</option>
+		<option value="182/26" selected>26</option>
+		<option value="182/27">27</option>
+		<option value="182/27B">27B</option>
+		<option value="182/28">28</option>
+		<option value="182/29">29</option>
+		<option value="182/29A">29A</option>
+		<option value="182/29B">29B</option>
+		<option value="182/29C">29C</option>
+		<option value="182/37">37</option>
+		<option value="182/37B">37B</option>
+		<option value="182/38">38</option>
+		<option value="182/38A">38A</option>
+		<option value="182/46">46</option>
+		<option value="182/47">47</option>
+		<option value="182/49">49</option>
+		<option value="182/49A">49A</option>
+		<option value="182/49E">49E</option>
+		<option value="182/50">50</option>
+		<option value="182/52">52</option>
+		<option value="182/55">55</option>
+		<option value="182/56">56</option>
+		<option value="182/56E">56E</option>
+		<option value="182/59">59</option>
+		<option value="182/59A">59A</option>
+		<option value="182/66">66</option>
+		<option value="182/70">70</option>
+		<option value="182/71">71</option>
+		<option value="182/72">72</option>
+		<option value="182/73">73</option>
+		<option value="182/74">74</option>
+		<option value="182/75">75</option>
+		<option value="182/76">76</option>
+		<option value="182/76A">76A</option>
+		<option value="182/81">81</option>
+		<option value="182/81A">81A</option>
+		<option value="182/81B">81B</option>
+		<option value="182/81E">81E</option>
+		<option value="182/84">84</option>
+		<option value="182/91">91</option>
+		<option value="182/92C">92C</option>
+		<option value="182/93">93</option>
+		<option value="182/94">94</option>
+		<option value="182/94A">94A</option>
+		<option value="182/95">95</option>
+		<option value="182/95A">95A</option>
+		<option value="182/96">96</option>
+		<option value="182/116">116</option>
+		<option value="182/N25">N25</option>
+		<option value="182/N7">N7</option>
+
+							</select>
+						</td>
+						<td width="10">&nbsp</td>
+						
+						<td valign="top">						
+						
+						
+							<select name="stopId" size="1" class="selection" onchange="OnLinieChanged()">
+								
+										<option value="Argus House">Argus House</option>
+		<option value="Asda Crowhurst Road">Asda Crowhurst Road</option>
+		<option value="Brighton Station C">Brighton Station C</option>
+		<option value="Bromley Road">Bromley Road</option>
+		<option value="Brunswick Place">Brunswick Place</option>
+		<option value="Buxted Rise">Buxted Rise</option>
+		<option value="Carden Hill">Carden Hill</option>
+		<option value="Churchill Square BF">Churchill Square BF</option>
+		<option value="Churchill Square CG">Churchill Square CG</option>
+		<option value="Clarence Square">Clarence Square</option>
+		<option value="Clock Tower">Clock Tower</option>
+		<option value="County Oak Avenue">County Oak Avenue</option>
+		<option value="Crowhurst Road North">Crowhurst Road North</option>
+		<option value="Cuckmere Way">Cuckmere Way</option>
+		<option value="Eaton Road">Eaton Road</option>
+		<option value="Elsted Crescent">Elsted Crescent</option>
+		<option value="Fiveways" selected>Fiveways</option>
+		<option value="Friar Road">Friar Road</option>
+		<option value="George Street EK">George Street EK</option>
+		<option value="Hove Town Hall BC">Hove Town Hall BC</option>
+		<option value="Imperial Arcade">Imperial Arcade</option>
+		<option value="London Road Shops B">London Road Shops B</option>
+		<option value="London Road Shops SC">London Road Shops SC</option>
+		<option value="Lyminster Ave/Carden Hill">Lyminster Ave/Carden Hill</option>
+		<option value="Norfolk Square">Norfolk Square</option>
+		<option value="North Road">North Road</option>
+		<option value="North Road Bottom">North Road Bottom</option>
+		<option value="North Street A">North Street A</option>
+		<option value="North Street W">North Street W</option>
+		<option value="North Street X">North Street X</option>
+		<option value="North Street Y">North Street Y</option>
+		<option value="Old Boat Corner">Old Boat Corner</option>
+		<option value="Old Steine E">Old Steine E</option>
+		<option value="Old Steine H">Old Steine H</option>
+		<option value="Open Market O">Open Market O</option>
+		<option value="Open Market QM">Open Market QM</option>
+		<option value="Orchid View">Orchid View</option>
+		<option value="Osborne Road">Osborne Road</option>
+		<option value="Palmeira Square B">Palmeira Square B</option>
+		<option value="Rotherfield Cres Middle">Rotherfield Cres Middle</option>
+		<option value="Rotherfield Cres/Carden">Rotherfield Cres/Carden</option>
+		<option value="Rotherfield Crescent">Rotherfield Crescent</option>
+		<option value="Rugby Road/Ditchling Rd">Rugby Road/Ditchling Rd</option>
+		<option value="Saunders Hill">Saunders Hill</option>
+		<option value="Second Avenue">Second Avenue</option>
+		<option value="Semley Road">Semley Road</option>
+		<option value="Springfield Road">Springfield Road</option>
+		<option value="St Matthias Church">St Matthias Church</option>
+		<option value="St Peters Church LV">St Peters Church LV</option>
+		<option value="Surrenden Road Top">Surrenden Road Top</option>
+		<option value="The Roundhill">The Roundhill</option>
+		<option value="Varndean High School">Varndean High School</option>
+		<option value="Waitrose A">Waitrose A</option>
+		<option value="Waitrose B">Waitrose B</option>
+		<option value="Woodbourne Gar.">Woodbourne Gar.</option>
+
+							</select>
+													
+						</td>
+						<td width="10">&nbsp;</td>
+
+						
+						<td valign="top">
+								
+							<span class="pagedefault">
+							<select name="optDir" size="1" class="selection" onchange="OnLinieChanged()">
+							
+							<option value="Brighton Stn">Brighton Stn</option>
+<option value="Churchill Sq">Churchill Sq</option>
+<option value="Hollingbury">Hollingbury</option>
+<option value="Palmeira Sq" selected>Palmeira Sq</option>
+<option value="182000641"">All&nbsp;directions
+							</select>
+							</span>
+						
+						</td>
+						<td width="10">&nbsp;</td>							
+
+						
+						<td valign="top">
+							 
+							
+							<select name="nRows" size="1"  class="selection" onchange="Refresh()">
+							
+									<option value="4">4</option>
+		<option value="5">5</option>
+		<option value="6">6</option>
+		<option value="7">7</option>
+		<option value="8">8</option>
+		<option value="9">9</option>
+		<option value="10" selected>10</option>
+
+							</select>
+						</td>
+						<td width="10">&nbsp;</td>
+
+					</tr>
+
+					
+					<tr>
+					        <td colspan="2">&nbsp;</td>
+						
+						<td valign="top">
+												
+							<span class="pagedefault">
+							<input id="allLines" title="All lines at stop" type="checkbox" name="allLines" value="y" onclick="OnCheckAllRoutes()">
+							All routes for the stop
+							</span>	
+						
+						</td>						
+						<td colspan="5">&nbsp;</td>						
+					</tr>					
+					
+					<tr><td colspan="8">&nbsp;</td></tr>
+					<tr>
+						<td colspan="2">&nbsp;</td>
+
+						<td>&nbsp;</td>
+						<td width="10">&nbsp;</td>
+						
+						<td>
+						<span class="pagedefault">
+						
+							&nbsp;
+						
+						</span>
+						</td>
+						<td width="10">&nbsp;</td>
+						
+						<td><span class="pagedefault">
+						
+						Departure time:
+						</span></td>
+						<td width="10">&nbsp;</td>
+					</tr>
+
+					<tr>
+						<td colspan="2" rowspan="2">&nbsp;</td>
+						<td valign="top">&nbsp;
+						</td>
+						<td width="10"  rowspan="2">&nbsp;</td>
+						
+						
+						
+						<td valign="top" rowspan="2">
+							<span class="pagedefault">
+							  		<input type="hidden" value="n" name="showArrivals">&nbsp;
+					                </span>
+						</td>
+						<td width="10" rowspan="2">&nbsp;</td>
+					
+						
+						<td valign="top" rowspan="2">
+						
+						<span class="pagedefault">
+									<input type="radio" value="now" name="optTime" checked onclick="OnNowClick()">Now<br>
+		<input type="radio" value="time" name="optTime" id="radioTime" onclick="OnZeitClick()">
+		<input type="text" id="editTime" value=""name="time" size="6" onfocus="OnAbfahrtsZeitFocus()">
+
+						</span>
+						</td>
+						<td width="10" rowspan="2">&nbsp;</td>
+					</tr>
+					<tr>
+						<!--td valign="top">
+							<span class="pagedefault">
+							<input type="button" value="Network overview" name="cmdShow" class="cmd" 
+								title="Alternatively you can also select a stop in the network overview"
+								onclick="javascript:showNetzplan()">
+					                </span>
+						</td-->
+<td>&nbsp;</td>
+					</tr>
+
+					</table>
+</fieldset>
+
+					<table>
+					<tr><td colspan="6">&nbsp;</td></tr>
+					<tr>
+						<td valign="top">
+						<input type="button" value="Refresh" name="cmdShow" class="cmd" onclick="checkTimeFormat()">
+						</td>
+						<td width="10">&nbsp;</td>
+						
+						<td valign="top">
+						<input type="button" value="Auto-refresh" name="cmdShow" class="cmd" onclick="auto_refresh()">
+						</td>
+						<td width="10">&nbsp;</td>
+
+						<td valign="top">
+						<input type="button" value="Fullscreen" name="cmdFS" class="cmd" onclick="fullscreen()">
+						</td>
+						<td width="10">&nbsp;</td>
+					</tr>
+
+				</table>
+
+
+				<br><br>
+
+			</form>
+			
+				
+		
+			<span class="pagedefault">
+			Display information from 
+			26-Jan-2011 21:20
+			(real time):
+			</span>
+
+			<table border="0" cellpadding="0" cellspacing="0" bgcolor="black">
+			<tr>
+				<td height="20" colspan="6">&nbsp</td>
+			</tr>
+			<tr>
+				<td width="20">&nbsp</td>
+				<td colspan="4"><span class="dfititel">Fiveways</span></td>
+				<td width="20">&nbsp</td>
+			</tr>
+			<tr>
+				<td height="10" colspan="6">&nbsp</td>
+			</tr>
+			<tr>
+				<td width="20">&nbsp</td>
+				<td width="60" nowrap><IMG height=30 src="../img/linie.gif" width=10 align="top" alt=""><span class="dfititelsmall">Route</span></td>
+				<td width="10">&nbsp</td>
+				<td width="180" nowrap><IMG height=30 src="../img/linie.gif" width=10 align="top" alt="">
+				<span class="dfititelsmall">
+				
+				Destination
+				</span></td>
+				<td width="100" nowrap><IMG height=30 src="../img/linie.gif" width=10 align="top" alt="">
+				<span class="dfititelsmall">
+				
+				Departure
+				</span>
+				</td>
+
+				<td width="20">&nbsp</td>
+			</tr>
+			<tr>
+				<td height="10" colspan="6">&nbsp</td>
+			</tr>
+			
+			
+			
+					<tr>
+<td width="20"></td><td bgcolor="#660000" width="60" align="right" valign="top"><span class="dfifahrten">26</span></td><td bgcolor="#660000" width="10"></td><td bgcolor="#660000" width="180" style="WORD-BREAK:BREAK-ALL"><span class="dfifahrten">Palmeira&nbsp;Sq</span></td><td bgcolor="#660000" width="70" align="right" valign="top"><span class="dfifahrten">16&nbsp;min</span></td><td width="20"></td>	</tr> <tr> <td height="10" colspan="6"> </td> </tr>
+		<tr>
+<td width="20"></td><td bgcolor="#660000" width="60" align="right" valign="top"><span class="dfifahrten">26</span></td><td bgcolor="#660000" width="10"></td><td bgcolor="#660000" width="180" style="WORD-BREAK:BREAK-ALL"><span class="dfifahrten">Palmeira&nbsp;Sq</span></td><td bgcolor="#660000" width="70" align="right" valign="top"><span class="dfifahrten">22:37</span></td><td width="20"></td>	</tr> <tr> <td height="10" colspan="6"> </td> </tr>
+		<tr>
+<td width="20"></td><td bgcolor="#660000" width="60" align="right" valign="top"><span class="dfifahrten"></span></td><td bgcolor="#660000" width="10"></td><td bgcolor="#660000" width="180" style="WORD-BREAK:BREAK-ALL"><span class="dfifahrten">&nbsp</span></td><td bgcolor="#660000" width="70" align="right" valign="top"><span class="dfifahrten"></span></td><td width="20"></td>	</tr> <tr> <td height="10" colspan="6"> </td> </tr>
+		<tr>
+<td width="20"></td><td bgcolor="#660000" width="60" align="right" valign="top"><span class="dfifahrten"></span></td><td bgcolor="#660000" width="10"></td><td bgcolor="#660000" width="180" style="WORD-BREAK:BREAK-ALL"><span class="dfifahrten">&nbsp</span></td><td bgcolor="#660000" width="70" align="right" valign="top"><span class="dfifahrten"></span></td><td width="20"></td>	</tr> <tr> <td height="10" colspan="6"> </td> </tr>
+		<tr>
+<td width="20"></td><td bgcolor="#660000" width="60" align="right" valign="top"><span class="dfifahrten"></span></td><td bgcolor="#660000" width="10"></td><td bgcolor="#660000" width="180" style="WORD-BREAK:BREAK-ALL"><span class="dfifahrten">&nbsp</span></td><td bgcolor="#660000" width="70" align="right" valign="top"><span class="dfifahrten"></span></td><td width="20"></td>	</tr> <tr> <td height="10" colspan="6"> </td> </tr>
+		<tr>
+<td width="20"></td><td bgcolor="#660000" width="60" align="right" valign="top"><span class="dfifahrten"></span></td><td bgcolor="#660000" width="10"></td><td bgcolor="#660000" width="180" style="WORD-BREAK:BREAK-ALL"><span class="dfifahrten">&nbsp</span></td><td bgcolor="#660000" width="70" align="right" valign="top"><span class="dfifahrten"></span></td><td width="20"></td>	</tr> <tr> <td height="10" colspan="6"> </td> </tr>
+		<tr>
+<td width="20"></td><td bgcolor="#660000" width="60" align="right" valign="top"><span class="dfifahrten"></span></td><td bgcolor="#660000" width="10"></td><td bgcolor="#660000" width="180" style="WORD-BREAK:BREAK-ALL"><span class="dfifahrten">&nbsp</span></td><td bgcolor="#660000" width="70" align="right" valign="top"><span class="dfifahrten"></span></td><td width="20"></td>	</tr> <tr> <td height="10" colspan="6"> </td> </tr>
+		<tr>
+<td width="20"></td><td bgcolor="#660000" width="60" align="right" valign="top"><span class="dfifahrten"></span></td><td bgcolor="#660000" width="10"></td><td bgcolor="#660000" width="180" style="WORD-BREAK:BREAK-ALL"><span class="dfifahrten">&nbsp</span></td><td bgcolor="#660000" width="70" align="right" valign="top"><span class="dfifahrten"></span></td><td width="20"></td>	</tr> <tr> <td height="10" colspan="6"> </td> </tr>
+		<tr>
+<td width="20"></td><td bgcolor="#660000" width="60" align="right" valign="top"><span class="dfifahrten"></span></td><td bgcolor="#660000" width="10"></td><td bgcolor="#660000" width="180" style="WORD-BREAK:BREAK-ALL"><span class="dfifahrten">&nbsp</span></td><td bgcolor="#660000" width="70" align="right" valign="top"><span class="dfifahrten"></span></td><td width="20"></td>	</tr> <tr> <td height="10" colspan="6"> </td> </tr>
+		<tr>
+<td width="20"></td><td bgcolor="#660000" width="60" align="right" valign="top"><span class="dfifahrten"></span></td><td bgcolor="#660000" width="10"></td><td bgcolor="#660000" width="180" style="WORD-BREAK:BREAK-ALL"><span class="dfifahrten">&nbsp</span></td><td bgcolor="#660000" width="70" align="right" valign="top"><span class="dfifahrten"></span></td><td width="20"></td>	</tr> <tr> <td height="10" colspan="6"> </td> </tr>
+
+			
+			
+	
+			
+		</table>
+
+		<br><br>
+		
+
+		<span class="pagedefault"><b>Description of the time format:</b></span><br><br>
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td valign="top"><span class="monospace">hh:mm </span></td>
+				<td valign="top"><span class="pagedefault">Planned schedule time.</span></td>
+			</tr>
+			
+			<tr>
+				<td valign="top"><span class="monospace">x min </span>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				<td valign="top"><span class="pagedefault">Calculated time based on the current position of the vehicle.</span></td>
+			</tr>
+			
+			<tr>
+				<td valign="top"><span class="monospace">hh:mm
+				*
+					</span></td>
+				<td valign="top"><span class="pagedefault">Calculated time based on the current position of the vehicle.</span></td>
+			</tr>
+			
+		</table>
+		<br><br>
+  
+		
+	<br>
+        <br>	
+		
+						
+		<table width="100%" cellspacing="0" cellpadding="0" border="0">
+			<tr> 
+				<td height="1">&nbsp</td>
+			</tr>
+			<tr> 
+				<td height="3">&nbsp</td>
+			</tr>
+			<tr> 
+				<td class="textklein">© 2005, Continental VDO Automotive</td>
+			</tr>
+		</table>
+
+
+		</td>
+		</tr>
+
+		</TBODY>
+	</TABLE>
+
+</body>
+</html>
+

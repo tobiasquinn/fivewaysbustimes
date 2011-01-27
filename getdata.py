@@ -13,13 +13,24 @@ from BeautifulSoup import BeautifulSoup
 class BusData:
     def __init__(self, URLFILE):
     # read data file urls
+
+    # Read live data
         self._urls = []
         for line in open(URLFILE).readlines():
             if line[0] != '#':
                 self._urls.append(line.strip())
+    # Test data
+        self._urls = [
+                'file:data/set1/out1.html',
+                'file:data/set1/out2.html',
+                'file:data/set1/out3.html',
+                'file:data/set1/out4.html',
+                'file:data/set1/out5.html',
+                ]
 
     def _getdata(self):
         # get and scrape all the data into a list
+        times = []
         for url in self._urls[:]:
             doc = urllib2.urlopen(url).read()
             soup = BeautifulSoup(doc, convertEntities=BeautifulSoup.HTML_ENTITIES)
@@ -42,11 +53,15 @@ class BusData:
                     timenow = datetime.now()
                     # cut out anything pass the first space (encoded in html)
                     td = timedelta(minutes = int(arrive[:2]))
-                    arrive = (timenow + td).strftime("%H:%M")
+                    arrive = (timenow + td)
                 else:
                     # strip any following * which means calculated time when non offset
                     arrive = arrive.replace('*', '')
+                    arrive = datetime.strptime(arrive, "%H:%M")
+                times.append((busnum, destination, arrive))
                 print "%s,%s,%s" % (busnum, destination, arrive)
+        # sort the list by times
+        print sorted(times, key=lambda arrive: arrive[2]) 
 
 if __name__ == '__main__':
     bd = BusData('service.urls')
