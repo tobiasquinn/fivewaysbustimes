@@ -22,16 +22,16 @@ class BusData:
         else:
         # Test data
             self._urls = [
-                    'file:data/set1/out1.html',
-                    'file:data/set1/out2.html',
-                    'file:data/set1/out3.html',
-                    'file:data/set1/out4.html',
-                    'file:data/set1/out5.html',
+                    'file:data/set4/out1.html',
+                    'file:data/set4/out2.html',
+                    'file:data/set4/out3.html',
+                    'file:data/set4/out4.html',
                     ]
 
     def getData(self):
         # get and scrape all the data into a list
         times = []
+        count = 0
         for url in self._urls[:]:
             doc = urllib2.urlopen(url).read()
             soup = BeautifulSoup(doc, convertEntities=BeautifulSoup.HTML_ENTITIES)
@@ -44,6 +44,7 @@ class BusData:
                 arrive = dtimes[i+2].string
                 if arrive == None:
                     continue
+                #print "%s : %s : %s" % (busnum, destination, arrive)
                 # the time can have various formats
                 # - calculated minutes to arrival
                 # - calculated time of arrival
@@ -58,12 +59,22 @@ class BusData:
                 else:
                     # strip any following * which means calculated time when non offset
                     arrive = arrive.replace('*', '')
-                    arrive = datetime.strptime(arrive, "%H:%M")
+                    cpoint = arrive.find(':')
+                    hr = int(arrive[:cpoint])
+                    mins = int(arrive[cpoint+1:])
+                    # we want to get time now, replace the hrs and minutes
+                    # if the time is then before the current time, we advance the time by one day
+                    timenow = datetime.now()
+                    #print "replacing with %s:%s" % (hr, mins)
+                    arrive = timenow.replace(hour = hr, minute = mins)
+                    #print arrive
+                count += 1
                 times.append((busnum, destination, arrive))
-                print "%s,%s,%s" % (busnum, destination, arrive)
+                #print "%s,%d->%s,%s" % (busnum, count, destination, arrive)
         # sort the list by times
+        #print len(times)
         data = sorted(times, key=lambda arrive: arrive[2])
-        print data
+        #print len(data)
         return data
 
 if __name__ == '__main__':
