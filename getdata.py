@@ -17,7 +17,8 @@ class BusData:
         if URLFILE != None:
             self._urls = []
             for line in open(URLFILE).readlines():
-                if line[0] != '#':
+                line = line.strip()
+                if line != '' and line[0] != '#':
                     self._urls.append(line.strip())
         else:
         # Test data
