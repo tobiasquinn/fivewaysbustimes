@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1081</width>
+    <width>486</width>
     <height>545</height>
    </rect>
   </property>
@@ -18,10 +18,16 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>40</y>
-      <width>1061</width>
+      <y>50</y>
+      <width>461</width>
       <height>461</height>
      </rect>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="selectionBehavior">
+     <enum>QAbstractItemView::SelectRows</enum>
     </property>
     <column>
      <property name="text">
@@ -58,7 +64,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1081</width>
+     <width>486</width>
      <height>25</height>
     </rect>
    </property>

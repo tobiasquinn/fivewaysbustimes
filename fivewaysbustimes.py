@@ -27,9 +27,17 @@ class Main(QtGui.QMainWindow):
             twiDest   = QtGui.QTableWidgetItem(data[i][1])
             twiArrive = QtGui.QTableWidgetItem(data[i][2].strftime("%H:%M"))
 
+            twiBusnum.setTextAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
+            twiArrive.setTextAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
+
             self.ui.tableWidgetTimes.setItem(i, 1, twiBusnum)
             self.ui.tableWidgetTimes.setItem(i, 2, twiDest)
             self.ui.tableWidgetTimes.setItem(i, 0, twiArrive)
+        # auto resize our columns
+        hh = self.ui.tableWidgetTimes.horizontalHeader()
+        # hide row numbering
+        self.ui.tableWidgetTimes.verticalHeader().hide()
+        hh.setResizeMode(QtGui.QHeaderView.ResizeToContents)
 
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
