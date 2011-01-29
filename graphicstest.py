@@ -1,6 +1,7 @@
 #!/usr/bin/python2
 import sys
 from PyQt4 import QtGui, QtCore
+from PyQt4.QtCore import SIGNAL
 
 from fivewaysbustimes.ui.GraphicsUI import Ui_Graphics
 
@@ -14,8 +15,8 @@ class Main(QtGui.QMainWindow):
         #self.connect(self.ui.pushButtonStart, QtCore.SIGNAL('clicked()'), self._start)
         self._setupstatemachine()
 
-        self.connect(self.ui.pushButtonA, QtCore.SIGNAL('clicked()'), self._A)
-        self.connect(self.ui.pushButtonB, QtCore.SIGNAL('clicked()'), self._B)
+        self.connect(self.ui.pushButtonA, SIGNAL('clicked()'), self._A)
+        self.connect(self.ui.pushButtonB, SIGNAL('clicked()'), self._B)
 
     def _A(self):
         print "A"
@@ -40,8 +41,8 @@ class Main(QtGui.QMainWindow):
         # set a transistion
 #        trans = QtCore.QSignalTransition(self.ui.pushButtonStart, QtCore.SIGNAL('clicked()'))
 #        trans.setTargetState(endState)
-        startState.addTransition(self.ui.pushButtonStart, QtCore.SIGNAL('clicked()'), endState)
-        endState.addTransition(self.ui.pushButtonStart, QtCore.SIGNAL('clicked()'), startState)
+        startState.addTransition(self.ui.pushButtonStart, SIGNAL('clicked()'), endState)
+        endState.addTransition(self.ui.pushButtonStart, SIGNAL('clicked()'), startState)
 
         # add these states to the machine
         machine = QtCore.QStateMachine()
