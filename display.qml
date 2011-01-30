@@ -23,16 +23,20 @@ Rectangle {
             anchors.fill: parent
         }
 
+        onTextChanged: {
+            console.log("Text changed")
+        }
         // we want the text to fade out then in on a change
         onTimeChanged: {
             console.log("Time Changed" + time)
+            timeText.text = time
             state = "textChange"
         }
 
         states: [
             State {
                 name: "textChange";
-                when: text.changed
+//                when: text.changed
                 PropertyChanges {
                     target: timeText
                 }
@@ -45,7 +49,7 @@ Rectangle {
                 SequentialAnimation {
                     NumberAnimation { target: timeText; properties: "opacity"; to: 0; duration: 400 }
                     PropertyAction { target: timeText; property: "text"; value: timeText.time }
-                    NumberAnimation { target: timeText; properties: "opacity"; to: 1; duration: 800 }
+                    NumberAnimation { target: timeText; properties: "opacity"; to: 1; duration: 500 }
                     PropertyAction { target: timeText; property: "state"; value: "normal" }
                 }
             }
@@ -66,6 +70,18 @@ Rectangle {
                 var tn = new Date();
                 timeText.time = tn.getHours() + ":" + tn.getMinutes() + ":" + tn.getSeconds()
             }
+        }
+    }
+
+    Timer {
+        interval: 1000
+        running: true
+        repeat: true
+        triggeredOnStart: true
+        onTriggered: {
+            console.log("Clock Timer Change")
+            var tn = new Date();
+            timeText.time = tn.getHours() + ":" + tn.getMinutes() + ":" + tn.getSeconds()
         }
     }
 }
