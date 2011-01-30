@@ -10,12 +10,13 @@ Rectangle {
     Text {
         id: timeText
 
-        property string time: "1"
+        property string time
 
         anchors.horizontalCenter: page.horizontalCenter
         anchors.verticalCenter: page.verticalCenter
-        font.pointSize: 48; font.bold: true
-        state: "fadedin"
+        font.pointSize: 48
+        font.bold: true
+        state: "normal"
 
         MouseArea {
             id: mouseArea
@@ -25,47 +26,27 @@ Rectangle {
         // we want the text to fade out then in on a change
         onTimeChanged: {
             console.log("Time Changed" + time)
-            state = "fadedout"
+            state = "textChange"
         }
 
         states: [
             State {
-                name: "fadedout"
+                name: "textChange";
+                when: text.changed
                 PropertyChanges {
                     target: timeText
-                    opacity: 0
-                }
-            },
-            State {
-                name: "fadedin"
-                PropertyChanges {
-                    target: timeText
-                    opacity: 1
                 }
             }
         ]
 
         transitions: [
             Transition {
-                from: "fadedin"; to: "fadedout"
+                from: "normal"; to: "textChange"
                 SequentialAnimation {
-                    NumberAnimation {
-                        properties: "opacity"
-                        duration: 400
-                        easing.type: Easing.OutQuad
-                    }
-                    PropertyAction { target: timeText; property: "state"; value: "fadedin" }
-                }
-            },
-            Transition {
-                from: "fadedout"; to: "fadedin"
-                SequentialAnimation {
+                    NumberAnimation { target: timeText; properties: "opacity"; to: 0; duration: 400 }
                     PropertyAction { target: timeText; property: "text"; value: timeText.time }
-                    NumberAnimation {
-                        properties: "opacity"
-                        duration: 800
-                        easing.type: Easing.InQuad
-                    }
+                    NumberAnimation { target: timeText; properties: "opacity"; to: 1; duration: 800 }
+                    PropertyAction { target: timeText; property: "state"; value: "normal" }
                 }
             }
         ]
@@ -82,7 +63,8 @@ Rectangle {
             anchors.fill: parent
             onClicked: {
                 console.log("Clicked")
-                timeText.time = parseInt(timeText.time) + 1
+                var tn = new Date();
+                timeText.time = tn.getHours() + ":" + tn.getMinutes() + ":" + tn.getSeconds()
             }
         }
     }
