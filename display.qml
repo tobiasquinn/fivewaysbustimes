@@ -23,23 +23,14 @@ Rectangle {
             anchors.fill: parent
         }
 
-        onTextChanged: {
-            console.log("Text changed")
-        }
-        // we want the text to fade out then in on a change
         onTimeChanged: {
-            console.log("Time Changed" + time)
-            timeText.text = time
+            console.log("Time Changed: " + time)
             state = "textChange"
         }
 
         states: [
             State {
                 name: "textChange";
-//                when: text.changed
-                PropertyChanges {
-                    target: timeText
-                }
             }
         ]
 
@@ -56,25 +47,8 @@ Rectangle {
         ]
     }
 
-    Text {
-        id: goText
-        text: "GO"
-        anchors.horizontalCenter: page.horizontalCenter
-        anchors.bottom: page.bottom
-
-        MouseArea {
-            id: mouseAreaGo
-            anchors.fill: parent
-            onClicked: {
-                console.log("Clicked")
-                var tn = new Date();
-                timeText.time = tn.getHours() + ":" + tn.getMinutes() + ":" + tn.getSeconds()
-            }
-        }
-    }
-
     Timer {
-        interval: 1000
+        interval: 2000
         running: true
         repeat: true
         triggeredOnStart: true
