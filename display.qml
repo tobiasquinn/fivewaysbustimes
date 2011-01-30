@@ -8,43 +8,67 @@ Rectangle {
     opacity: 1
 
     Text {
-        id: busnumberText
-        text: "25"
+        id: timeText
+
+        property string time: "1"
+
         anchors.horizontalCenter: page.horizontalCenter
         anchors.verticalCenter: page.verticalCenter
         font.pointSize: 48; font.bold: true
+        state: "fadedin"
 
         MouseArea {
             id: mouseArea
             anchors.fill: parent
         }
 
-/*        Rectangle {
-            anchors.fill: parent
-            color: "tomato"
-            opacity: 0.33
-        }*/
-
-        // we want the text to fade in the out on a change
-        states: State {
-            name: "fadeout"
-            when: mouseAreaGo.pressed == true
-            PropertyChanges {
-                target: busnumberText
-                opacity: 0
-            }   
+        // we want the text to fade out then in on a change
+        onTimeChanged: {
+            console.log("Time Changed" + time)
+            state = "fadedout"
         }
 
-        transitions: Transition {
-            from: ""; to: "fadeout";
-            ParallelAnimation {
-                NumberAnimation {
-                    properties: "opacity"
-                    duration: 800
-                    easing.type: Easing.OutQuad
+        states: [
+            State {
+                name: "fadedout"
+                PropertyChanges {
+                    target: timeText
+                    opacity: 0
+                }
+            },
+            State {
+                name: "fadedin"
+                PropertyChanges {
+                    target: timeText
+                    opacity: 1
                 }
             }
-        }
+        ]
+
+        transitions: [
+            Transition {
+                from: "fadedin"; to: "fadedout"
+                SequentialAnimation {
+                    NumberAnimation {
+                        properties: "opacity"
+                        duration: 400
+                        easing.type: Easing.OutQuad
+                    }
+                    PropertyAction { target: timeText; property: "state"; value: "fadedin" }
+                }
+            },
+            Transition {
+                from: "fadedout"; to: "fadedin"
+                SequentialAnimation {
+                    PropertyAction { target: timeText; property: "text"; value: timeText.time }
+                    NumberAnimation {
+                        properties: "opacity"
+                        duration: 800
+                        easing.type: Easing.InQuad
+                    }
+                }
+            }
+        ]
     }
 
     Text {
@@ -56,6 +80,10 @@ Rectangle {
         MouseArea {
             id: mouseAreaGo
             anchors.fill: parent
+            onClicked: {
+                console.log("Clicked")
+                timeText.time = parseInt(timeText.time) + 1
+            }
         }
     }
 }
