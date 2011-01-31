@@ -6,6 +6,7 @@ Rectangle {
     height: 200
     color: "lightgray"
     opacity: 1
+    property alias text: timeText.text
 
     FadeText {
         id: timeText
