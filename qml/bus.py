@@ -11,26 +11,32 @@ class BusWrapper(QtCore.QObject):
         QtCore.QObject.__init__(self)
         self._bus = bus
 
-    def _name(self):
-        return str(self._bus)
+    def _number(self):
+        return self._bus.number
 
-    changed = QtCore.Signal()
-    name = QtCore.Property(unicode, _name, notify=changed)
+    def _arrivetime(self):
+        return self._bus.arrivetime
+
+    @QtCore.Signal
+    def changed(self): pass
+
+    number = QtCore.Property(unicode, _number, notify=changed)
+    arrivetime = QtCore.Property(unicode, _arrivetime, notify=changed)
 
 class BusListModel(QtCore.QAbstractListModel):
-    COLUMNS = ('Number', 'Time')
+    COLUMNS = ('Bus',)
 
-    def __init__(self, busdata):
+    def __init__(self, buses):
         QtCore.QAbstractListModel.__init__(self)
-        self._busdata = busdata
+        self._buses = [BusWrapper(x) for x in buses]
         self.setRoleNames(dict(enumerate(BusListModel.COLUMNS)))
 
     def rowCount(self, parent=QtCore.QModelIndex()):
-        return len(self._busdata)
+        return len(self._buses)
 
     def data(self, index, role):
-        if index.isValid() and role == ThingListModel.COLUMNS.index('Number'):
-            return self._busdata[index.row]
+        if index.isValid() and role == BusListModel.COLUMNS.index('Bus'):
+            return self._buses[index.row()]
         return None
 
 class Bus(object):
@@ -41,12 +47,12 @@ class Bus(object):
     def __str__(self):
         return "Number %d Time %s" % (self.number, self.arrivetime)
 
-busdata = [
-        Bus(5,  "14:30"),
-        Bus(26, "16:21"),
-        Bus(56, "17:01"),
-        Bus(26, "09:21"),
-        Bus(7,  "13:01"),
+buses = [
+        Bus("5",  "14:30"),
+        Bus("26", "16:21"),
+        Bus("56", "17:01"),
+        Bus("26", "09:21"),
+        Bus("7",  "13:01"),
         ]
 
 app = QtGui.QApplication(sys.argv)
@@ -58,12 +64,12 @@ view = QtDeclarative.QDeclarativeView()
 #view.setViewport(glw)
 view.setResizeMode(QtDeclarative.QDeclarativeView.SizeRootObjectToView)
 
-buses = [BusWrapper(bus) for bus in busdata]
-busesList = BusListModel(buses)
+#buses = [BusWrapper(bus) for bus in busdata]
+busesListModel = BusListModel(buses)
 
 rc = view.rootContext()
 
-rc.setContextProperty('pythonListModel', busesList)
+rc.setContextProperty('pythonListModel', busesListModel)
 
 view.setSource('buslist.qml')
 
