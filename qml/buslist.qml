@@ -23,13 +23,22 @@ ListView {
                 anchors.leftMargin: 10
                 anchors.left: parent.left
             }
+            Text {
+                id: destination
+                elide: Text.ElideRight
+                text: model.Bus.destination
+                color: "plum"
+                font.italic: true
+                anchors.leftMargin: 10
+                anchors.left: number.right
+            }
             FadeText {
                 id: arrivetime
                 text: model.Bus.arrivetime
                 color: "yellow"
                 font.bold: true
                 anchors.leftMargin: 10
-                anchors.left: number.right
+                anchors.left: destination.right
             }
         }
     }

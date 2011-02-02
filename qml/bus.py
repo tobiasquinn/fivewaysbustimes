@@ -17,11 +17,15 @@ class BusWrapper(QtCore.QObject):
     def _arrivetime(self):
         return self._bus.arrivetime
 
+    def _destination(self):
+        return self._bus.destination
+
     @QtCore.Signal
     def changed(self): pass
 
     number = QtCore.Property(unicode, _number, notify=changed)
     arrivetime = QtCore.Property(unicode, _arrivetime, notify=changed)
+    destination = QtCore.Property(unicode, _destination, notify=changed)
 
 class BusListModel(QtCore.QAbstractListModel):
     COLUMNS = ('Bus',)
@@ -40,19 +44,20 @@ class BusListModel(QtCore.QAbstractListModel):
         return None
 
 class Bus(object):
-    def __init__(self, number, arrivetime):
+    def __init__(self, number, arrivetime, destination):
         self.number = number
         self.arrivetime = arrivetime
+        self.destination = destination
 
     def __str__(self):
-        return "Number %d Time %s" % (self.number, self.arrivetime)
+        return "Number %s Destination %s Time %s" % (self.number, self.destination, self.arrivetime)
 
 buses = [
-        Bus("5",  "14:30"),
-        Bus("26", "16:21"),
-        Bus("56", "17:01"),
-        Bus("26", "09:21"),
-        Bus("7",  "13:01"),
+        Bus("5",  "14:30", "Somewhere with spaces"),
+        Bus("26", "16:21", "Left at the lights"),
+        Bus("56", "17:01", "Rightfully"),
+        Bus("26", "09:21", "Fly"),
+        Bus("7",  "13:01", "Hedge SR"),
         ]
 
 app = QtGui.QApplication(sys.argv)
