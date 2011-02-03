@@ -53,11 +53,14 @@ class Bus(object):
         return "Number %s Destination %s Time %s" % (self.number, self.destination, self.arrivetime)
 
 buses = [
-        Bus("5",  "14:30", "Somewhere with spaces"),
-        Bus("26", "16:21", "Left at the lights"),
-        Bus("56", "17:01", "Rightfully"),
-        Bus("26", "09:21", "Fly"),
-        Bus("7",  "13:01", "Hedge SR"),
+        Bus("5",   "14:30", "Somewhere with spaces"),
+        Bus("26",  "16:21", "Left at the lights"),
+        Bus("56",  "17:01", "Rightfully"),
+        Bus("836", "17:01", "Longbridge"),
+        Bus("N7",  "00:21", "Nightfully"),
+        Bus("N46", "03:14", "Late"),
+        Bus("26",  "09:21", "Fly"),
+        Bus("7",   "13:01", "Hedge SR"),
         ]
 
 app = QtGui.QApplication(sys.argv)
