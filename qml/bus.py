@@ -6,6 +6,9 @@ from PySide import QtCore
 from PySide import QtGui
 from PySide import QtDeclarative
 
+# use the same as testdisplay.py
+from TestDisplayUI import Ui_TestDisplay
+
 class BusWrapper(QtCore.QObject):
     def __init__(self, bus):
         QtCore.QObject.__init__(self)
@@ -63,24 +66,27 @@ buses = [
         Bus("7",   "13:01", "Hedge SR"),
         ]
 
-app = QtGui.QApplication(sys.argv)
- 
-m = QtGui.QMainWindow()
- 
-view = QtDeclarative.QDeclarativeView()
-#glw = QtOpenGL.QGLWidget()
-#view.setViewport(glw)
-view.setResizeMode(QtDeclarative.QDeclarativeView.SizeRootObjectToView)
+class MainWindow(QtGui.QMainWindow):
+    def __init__(self):
+        QtGui.QMainWindow.__init__(self)
 
-#buses = [BusWrapper(bus) for bus in busdata]
-busesListModel = BusListModel(buses)
+        self.ui = Ui_TestDisplay()
+        self.ui.setupUi(self)
 
-rc = view.rootContext()
+        self.display = self.ui.declarativeViewDisplay
+        self.display.setResizeMode(QtDeclarative.QDeclarativeView.SizeRootObjectToView)
+        busesListModel = BusListModel(buses)
+        rc = self.display.rootContext()
+        rc.setContextProperty('pythonListModel', busesListModel)
+        self.display.setSource('buslist.qml')
 
-rc.setContextProperty('pythonListModel', busesListModel)
+        self.ui.pushButtonTest.clicked.connect(self._test)
 
-view.setSource('buslist.qml')
+    def _test(self):
+        print "Test clicked"
 
-m.setCentralWidget(view)
-m.show()
-app.exec_()
+if __name__ == '__main__':
+    app = QtGui.QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
+    sys.exit(app.exec_())
