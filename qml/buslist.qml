@@ -1,26 +1,29 @@
 import Qt 4.7
 
 ListView {
-    id: pythonListView
+    id: plv
 
-    width: 400
+    width: 600
     height: 200
+    property int rows: 5
+    property int rowheight: height / rows
 
     model: pythonListModel
 
     delegate: Component {
         id: col
         Rectangle {
-            width: pythonListView.width
-            height: 40
+            width: plv.width
+            height:  plv.rowheight
             color: ((index % 2 == 0) ? "#222" : "#111")
             FadeText {
                 id: arrivetime
                 text: model.Bus.arrivetime
                 color: "yellow"
                 font.bold: true
-                font.pointSize: 24
-                anchors.leftMargin: 10
+                font.pixelSize: parent.height * 0.80
+                width: parent.width * 0.15
+//                anchors.leftMargin: 10
                 anchors.left: parent.left
             }
             Text {
@@ -29,9 +32,9 @@ ListView {
                 text: model.Bus.number
                 color: "white"
                 font.bold: true
-                font.pointSize: 24
-                width: 60
-                anchors.leftMargin: 10
+                font.pixelSize: parent.height * 0.80
+                width: parent.width * 0.10
+//                anchors.leftMargin: 10
                 anchors.left: arrivetime.right
             }
             Text {
@@ -40,8 +43,9 @@ ListView {
                 text: model.Bus.destination
                 color: "plum"
                 font.italic: true
-                font.pointSize: 24
-                anchors.leftMargin: 10
+                font.pixelSize: parent.height * 0.80
+                width: parent.width * 0.75
+//                anchors.leftMargin: 10
                 anchors.left: number.right
             }
         }
