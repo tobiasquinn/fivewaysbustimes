@@ -46,6 +46,14 @@ class BusListModel(QtCore.QAbstractListModel):
             return self._buses[index.row()]
         return None
 
+    def removeRows(self, row, count, parent=QtCore.QModelIndex()):
+        self.beginRemoveRows(parent, row, row + count - 1)
+        while count != 0:
+            del self._buses[row]
+            count -= 1
+        self.endRemoveRows()
+        return True
+
 class Bus(object):
     def __init__(self, number, arrivetime, destination):
         self.number = number
@@ -75,15 +83,16 @@ class MainWindow(QtGui.QMainWindow):
 
         self.display = self.ui.declarativeViewDisplay
         self.display.setResizeMode(QtDeclarative.QDeclarativeView.SizeRootObjectToView)
-        busesListModel = BusListModel(buses)
+        self.busesListModel = BusListModel(buses)
         rc = self.display.rootContext()
-        rc.setContextProperty('pythonListModel', busesListModel)
+        rc.setContextProperty('pythonListModel', self.busesListModel)
         self.display.setSource('buslist.qml')
 
         self.ui.pushButtonTest.clicked.connect(self._test)
 
     def _test(self):
         print "Test clicked"
+        print self.busesListModel.removeRow(2)
 
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
