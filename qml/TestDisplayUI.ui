@@ -37,6 +37,19 @@
      <string>Test</string>
     </property>
    </widget>
+   <widget class="QCheckBox" name="checkBoxRunTimer">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>220</y>
+      <width>98</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Run Timer</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
