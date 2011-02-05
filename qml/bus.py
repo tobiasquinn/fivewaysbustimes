@@ -20,7 +20,8 @@ class BusWrapper(QtCore.QObject):
         return self._bus.number
 
     def _arrivetime(self):
-        return self._bus.arrivetime.strftime("%H:%M")
+        return self._bus.arrivetime
+#        return self._bus.arrivetime.strftime("%H:%M")
 
     def _destination(self):
         return self._bus.destination
@@ -43,6 +44,10 @@ class BusListModel(QtCore.QAbstractListModel):
     def setBuses(self, buses):
         self._buses = [BusWrapper(x) for x in buses]
         QtCore.QObject.emit(self, QtCore.SIGNAL("dataChanged(const QtGui.QModelIndex&, const QtGui.QModelIndex &)"), 0, len(self._buses))
+        #QtCore.QObject.emit(self, QtCore.SIGNAL("dataChanged(const QtGui.QModelIndex&, const QtGui.QModelIndex &)"), 0, len(self._buses), "banana")
+        print "setBuses"
+        #self.dataChanged.emit(0, 1)
+        #self.dataChanged.emit(QtCore.QModelIndex(0), QtCore.QModelIndex(len(self._buses)))
 
     def rowCount(self, parent=QtCore.QModelIndex()):
         return len(self._buses)
@@ -69,16 +74,26 @@ class Bus(object):
     def __str__(self):
         return "Number %s Destination %s Time %s" % (self.number, self.destination, self.arrivetime)
 
-#buses = [
-#        Bus("5",   "14:30", "Somewhere with spaces"),
-#        Bus("26",  "16:21", "Left at the lights"),
-#        Bus("56",  "17:01", "Rightfully"),
-#        Bus("836", "17:01", "Longbridge"),
-#        Bus("N7",  "00:21", "Nightfully"),
-#        Bus("N46", "03:14", "Late"),
-#        Bus("26",  "09:21", "Fly"),
-#        Bus("7",   "13:01", "Hedge SR"),
-#        ]
+buses = [
+        Bus("5", "Somewhere with spaces", "14:30"),
+        Bus("26",  "Left at the lights", "16:21"),
+        Bus("56",  "Rightfully", "17:01"),
+        Bus("836", "Longbridge", "17:01"),
+        Bus("N7",  "Nightfully", "00:21"),
+        Bus("N46", "Late", "03:14"),
+        Bus("26",  "Fly", "09:21"),
+        Bus("7",   "Hedge SR", "13:01"),
+        ]
+buses1 = [
+        Bus("5", "Somewhere with spaces", "13:30"),
+        Bus("26",  "Left at the lights", "15:21"),
+        Bus("56",  "Rightfully", "16:01"),
+        Bus("836", "Longbridge", "19:01"),
+        Bus("N7",  "Nightfully", "12:21"),
+        Bus("N46", "Late", "05:14"),
+        Bus("26",  "Fly", "11:21"),
+        Bus("7",   "Hedge SR", "12:01"),
+        ]
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
@@ -103,7 +118,8 @@ class MainWindow(QtGui.QMainWindow):
         self._timer.setInterval(500)
         self._timer.timeout.connect(self._update)
         # out information source
-        self._businfo = BusData('service.urls')
+        #self._businfo = BusData('service.urls')
+        self._busesListModel.setBuses(buses)
 
     def _runtimer(self, state):
         if state:
@@ -124,7 +140,11 @@ class MainWindow(QtGui.QMainWindow):
 
     def _test(self):
         print "Manual information update"
-        self._update()
+        #self._update()
+        blm = BusListModel()
+        blm.setBuses(buses1)
+        self.display.rootContext().setContextProperty('pythonListModel', blm)
+        #self._busesListModel.setBuses(buses1)
 
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
