@@ -11,7 +11,7 @@ Rectangle {
     }
     width: 600
     height: 300
-    ListModel {
+/*    ListModel {
         id: busesListModel
 
         ListElement {
@@ -29,7 +29,7 @@ Rectangle {
             arrivetime: "19:30"
             destination: "Fiveways"
         }
-    }
+    }*/
 
     // The delegate for each item in our model
     Component {
@@ -45,7 +45,7 @@ Rectangle {
                 anchors.bottom: parent.bottom
                 FadeText {
                     //            id: arrivetime
-                    text: arrivetime
+                    text: Bus.arrivetime
                     color: "yellow"
                     font.bold: true
                     font.pixelSize: constants.fixedrowheight * 0.80
@@ -55,7 +55,7 @@ Rectangle {
                 FadeText {
                     //            id: number
                     elide: Text.ElideRight
-                    text: number
+                    text: Bus.number
                     color: "white"
                     font.bold: true
                     font.pixelSize: constants.fixedrowheight * 0.80
@@ -65,7 +65,7 @@ Rectangle {
                 FadeText {
                     //            id: destination
                     elide: Text.ElideRight
-                    text: destination
+                    text: Bus.destination
                     color: "plum"
                     //font.italic: true
                     font.pixelSize: constants.fixedrowheight * 0.80
@@ -96,11 +96,12 @@ Rectangle {
         width: constants.totalwidth 
         height: constants.totalheight
 
-        model: busesListModel
+        //        model: busesListModel
+        model: pythonListModel
         delegate: listDelegate
     }
 
-    Row {
+/*    Row {
         anchors { left: parent.left; bottom: parent.bottom; }
         TextButton {
             text: "Add a bus"
@@ -128,5 +129,5 @@ Rectangle {
             text: "insert"
             onClicked: {busesListModel.remove(1); busesListModel.insert(1, {"number": "12", "arrivetime" : "72:23", "destination": "Test"})}
         }
-    }
+    }*/
 }
