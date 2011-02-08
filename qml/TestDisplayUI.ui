@@ -24,23 +24,23 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButtonTestRemove">
+   <widget class="QPushButton" name="pushButtonTestBuses1">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>20</x>
       <y>220</y>
       <width>101</width>
       <height>27</height>
      </rect>
     </property>
     <property name="text">
-     <string>Test Remove</string>
+     <string>Test Buses 1</string>
     </property>
    </widget>
    <widget class="QCheckBox" name="checkBoxRunTimer">
     <property name="geometry">
      <rect>
-      <x>440</x>
+      <x>330</x>
       <y>220</y>
       <width>98</width>
       <height>22</height>
@@ -50,7 +50,7 @@
      <string>Run Timer</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButtonTestAdd">
+   <widget class="QPushButton" name="pushButtonTestBuses2">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -60,20 +60,20 @@
      </rect>
     </property>
     <property name="text">
-     <string>Test Add</string>
+     <string>Test Buses 2</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButtonChange">
+   <widget class="QPushButton" name="pushButtonManualFetch">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>220</x>
       <y>220</y>
       <width>98</width>
       <height>27</height>
      </rect>
     </property>
     <property name="text">
-     <string>Change 2</string>
+     <string>Manual Fetch</string>
     </property>
    </widget>
   </widget>

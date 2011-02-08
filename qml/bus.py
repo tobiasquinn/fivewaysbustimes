@@ -11,22 +11,26 @@ from getdata import BusData
 # use the same as testdisplay.py
 from TestDisplayUI import Ui_TestDisplay
 
-class BusWrapper(QtCore.QObject):
-    def __init__(self, bus):
+class Bus(QtCore.QObject):
+    def __init__(self, number, destination, arrivetime):
         QtCore.QObject.__init__(self)
-        self._bus = bus
+        self._number = number
+        self._destination = destination
+        self._arrivetime = arrivetime
 
-    def _number(self):
-        return self._bus.number
+    def getNumber(self):
+        return self._number
 
-    def _arrivetime(self):
-        return self._bus.arrivetime
+    def getArrivetime(self):
+        return self._arrivetime
 #        return self._bus.arrivetime.strftime("%H:%M")
 
-    def _destination(self):
-        return self._bus.destination
+    def getDestination(self):
+        return self._destination
 
     def set(self, new):
+        print "Bus::set"
+        print self, new
         self._number = new._number
         self._arrivetime = new._arrivetime
         self._destination = new._destination
@@ -34,25 +38,19 @@ class BusWrapper(QtCore.QObject):
 
     @QtCore.Signal
     def changed(self):
-        print "BusWrapper::changed"
         pass
+        print "BusWrapper::changed"
 
     def __cmp__(self, other):
-        print self._number(), other._number()
-        print self._arrivetime(), other._arrivetime()
-        print self._destination(), other._destination()
-        if other._number() == self._number() and other._arrivetime() == self._arrivetime() and other._destination() == self._destination():
+        print "%s~%s %s~%s %s~%s" % (self.getNumber(), other.getNumber(), self.getArrivetime(), other.getArrivetime(), self.getDestination(), other.getDestination())
+        if other.getNumber() == self.getNumber() and other.getArrivetime() == self.getArrivetime() and other.getDestination() == self.getDestination():
             return 0
         else:
             return -1
 
-    def testchanged(self):
-        print self
-        self.changed.emit()
-
-    number = QtCore.Property(unicode, _number, notify=changed)
-    arrivetime = QtCore.Property(unicode, _arrivetime, notify=changed)
-    destination = QtCore.Property(unicode, _destination, notify=changed)
+    number = QtCore.Property(unicode, getNumber, notify=changed)
+    arrivetime = QtCore.Property(unicode, getArrivetime, notify=changed)
+    destination = QtCore.Property(unicode, getDestination, notify=changed)
 
 class BusListModel(QtCore.QAbstractListModel):
     COLUMNS = ('Bus',)
@@ -60,7 +58,7 @@ class BusListModel(QtCore.QAbstractListModel):
     def __init__(self, buses=[]):
         QtCore.QAbstractListModel.__init__(self)
         self.setRoleNames(dict(enumerate(BusListModel.COLUMNS)))
-        self._buses = [BusWrapper(x) for x in buses]
+        self._buses = buses
 
     def setBuses(self, buses):
         print "setBuses"
@@ -86,12 +84,11 @@ class BusListModel(QtCore.QAbstractListModel):
             print newlen, newlen - oldlen
             for i in range(oldlen, newlen):
                 print "add %d" % i
-                self._appendRow(BusWrapper(buses[i]), i)
+                self._appendRow(buses[i], i)
         # we've now dealy with additions
         # set any rows that have changed
         for i in range(newlen):
-            bus = BusWrapper(buses[i])
-            print self._buses[i], bus
+            bus = buses[i]
             if self._buses[i] != bus:
                 print "change %d" % i
                 self._set(i, bus)
@@ -128,41 +125,7 @@ class BusListModel(QtCore.QAbstractListModel):
         self.endRemoveRows()
         return True
 
-class Bus(object):
-    def __init__(self, number, destination, arrivetime):
-        self.number = number
-        self.arrivetime = arrivetime
-        self.destination = destination
-
-    def __str__(self):
-        return "Number %s Destination %s Time %s" % (self.number, self.destination, self.arrivetime)
-
-buses = [
-        Bus("5", "Somewhere with spaces", "14:30"),
-        Bus("26",  "Left at the lights", "16:21"),
-        Bus("56",  "Rightfully", "17:01"),
-        Bus("836", "Longbridge", "17:01"),
-        Bus("N7",  "Nightfully", "00:21"),
-        Bus("N46", "Late", "03:14"),
-        Bus("26",  "Fly", "09:21"),
-        Bus("7",   "Hedge SR", "13:01"),
-        ]
-buses1 = [
-        Bus("5", "Somewhere with spaces", "13:30"),
-        Bus("26",  "Left at the lights", "16:21"),
-        Bus("56",  "Rightfully", "16:01"),
-        Bus("836", "Longbridge", "19:01"),
-        Bus("N7",  "Nightfully", "00:21"),
-        Bus("N46", "Late", "05:14"),
-        Bus("26",  "Fly", "11:21"),
-        Bus("7",   "Hedge SR", "12:01"),
-        ]
-#buses1 = [
-#        Bus("5", "Somewhere with spaces", "13:30"),
-#        Bus("26",  "Left at the lights", "16:21"),
-#        Bus("56",  "Rightfully", "16:01"),
-#        ]
-
+from copy import copy
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
@@ -177,9 +140,9 @@ class MainWindow(QtGui.QMainWindow):
         rc.setContextProperty('pythonListModel', self._busesListModel)
         self.display.setSource('buslist.qml')
 
-        self.ui.pushButtonTestAdd.clicked.connect(self._testadd)
-        self.ui.pushButtonTestRemove.clicked.connect(self._testremove)
-        self.ui.pushButtonChange.clicked.connect(self._testchange)
+        self.ui.pushButtonTestBuses1.clicked.connect(self._testbuses1)
+        self.ui.pushButtonTestBuses2.clicked.connect(self._testbuses2)
+        self.ui.pushButtonManualFetch.clicked.connect(self._manualfetch)
 
         self.ui.checkBoxRunTimer.stateChanged.connect(self._runtimer)
 
@@ -189,13 +152,17 @@ class MainWindow(QtGui.QMainWindow):
         self._timer.timeout.connect(self._update)
         # out information source
         #self._businfo = BusData('service.urls')
-        self._busesListModel.setBuses(buses)
+        #self._busesListModel.setBuses(buses)
 
     def _runtimer(self, state):
         if state:
             self._timer.start()
         else:
             self._timer.stop()
+
+    def _manualfetch(self):
+        print "Manual fetch"
+        self._update()
 
     def _update(self):
         print "Information update"
@@ -208,21 +175,32 @@ class MainWindow(QtGui.QMainWindow):
         self._busesListModel.setBuses(buses)
         print "Data updated"
 
-    def _testremove(self):
+    def _testbuses1(self):
         #print "Manual information update"
-        print "Test remove"
-        self._busesListModel.setBuses(buses1)
+        print "Buses 1"
+        self._busesListModel.setBuses((
+                Bus("5", "Somewhere with spaces", "14:30"),
+                Bus("26",  "Left at the lights", "16:21"),
+                Bus("56",  "Rightfully", "17:01"),
+                Bus("836", "Longbridge", "17:01"),
+                Bus("N7",  "Nightfully", "00:21"),
+                Bus("N46", "Late", "03:14"),
+                Bus("26",  "Fly", "09:21"),
+                Bus("7",   "Hedge SR", "13:01"),
+                ))
 
-    def _testadd(self):
-        print "Test add"
-        self._busesListModel.setBuses(buses)
-
-    def _testchange(self):
-        print "Test Change"
-        l = buses1
-        l[1] = Bus("99", "LAOIRK", "55:55")
-        print l
-        self._busesListModel.setBuses(l)
+    def _testbuses2(self):
+        print "Buses 2"
+        self._busesListModel.setBuses((
+                Bus("5", "Somewhere with spaces", "13:30"),
+                Bus("26",  "Left at the lights", "16:21"),
+                Bus("56",  "Rightfully", "16:01"),
+                Bus("836", "Longbridge", "19:01"),
+                Bus("N7",  "Nightfully", "00:21"),
+                Bus("N46", "Late", "05:14"),
+                Bus("26",  "Fly", "11:21"),
+                Bus("7",   "Hedge SR", "12:01"),
+                ))
 
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
