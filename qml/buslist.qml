@@ -4,13 +4,13 @@ Rectangle {
     Item {
         id: constants
         property int totalwidth: 600
-        property int totalheight: 200
-        property int rows: 5
+        property int totalheight: 750
+        property int rows: 16
         property int fixedrowheight: totalheight / rows
         property int animationduration: 250
     }
-    width: 600
-    height: 300
+    width: constants.totalwidth
+    height: constants.totalheight
 /*    ListModel {
         id: busesListModel
 
@@ -49,8 +49,13 @@ Rectangle {
                     color: "yellow"
                     font.bold: true
                     font.pixelSize: constants.fixedrowheight * 0.80
-                    width: rec.width * 0.15
+                    width: rec.width * 0.25
                     fadeduration: constants.animationduration
+                    Rectangle {
+                        anchors.fill: parent
+                        color: "red"
+                        opacity: 0.3
+                    }
                 }
                 FadeText {
                     //            id: number
@@ -59,8 +64,13 @@ Rectangle {
                     color: "white"
                     font.bold: true
                     font.pixelSize: constants.fixedrowheight * 0.80
-                    width: rec.width * 0.10
+                    width: rec.width * 0.20
                     fadeduration: constants.animationduration
+                    Rectangle {
+                        anchors.fill: parent
+                        color: "green"
+                        opacity: 0.3
+                    }
                 }
                 FadeText {
                     //            id: destination
@@ -70,8 +80,13 @@ Rectangle {
                     //font.italic: true
                     font.pixelSize: constants.fixedrowheight * 0.80
                     font.pointSize: 24
-                    width: rec.width * 0.75
+                    width: rec.width * 0.55
                     fadeduration: constants.animationduration
+                    Rectangle {
+                        anchors.fill: parent
+                        color: "blue"
+                        opacity: 0.3
+                    }
                 }
             }
             ListView.onAdd: SequentialAnimation {

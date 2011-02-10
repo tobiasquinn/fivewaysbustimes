@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>621</width>
-    <height>313</height>
+    <height>844</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,15 +20,18 @@
       <x>10</x>
       <y>10</y>
       <width>600</width>
-      <height>200</height>
+      <height>750</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButtonTestBuses1">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>220</y>
+      <x>10</x>
+      <y>770</y>
       <width>101</width>
       <height>27</height>
      </rect>
@@ -40,8 +43,8 @@
    <widget class="QCheckBox" name="checkBoxRunTimer">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>220</y>
+      <x>320</x>
+      <y>770</y>
       <width>98</width>
       <height>22</height>
      </rect>
@@ -51,10 +54,13 @@
     </property>
    </widget>
    <widget class="QPushButton" name="pushButtonTestBuses2">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>220</y>
+      <x>110</x>
+      <y>770</y>
       <width>98</width>
       <height>27</height>
      </rect>
@@ -66,8 +72,8 @@
    <widget class="QPushButton" name="pushButtonManualFetch">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>220</y>
+      <x>210</x>
+      <y>770</y>
       <width>98</width>
       <height>27</height>
      </rect>

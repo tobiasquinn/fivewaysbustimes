@@ -22,8 +22,8 @@ class Bus(QtCore.QObject):
         return self._number
 
     def getArrivetime(self):
-        return self._arrivetime
-#        return self._bus.arrivetime.strftime("%H:%M")
+#        return self._arrivetime
+        return self._arrivetime.strftime("%H:%M")
 
     def getDestination(self):
         return self._destination
@@ -148,11 +148,10 @@ class MainWindow(QtGui.QMainWindow):
 
         # setup timer
         self._timer = QtCore.QTimer()
-        self._timer.setInterval(500)
+        self._timer.setInterval(30 * 1000)
         self._timer.timeout.connect(self._update)
         # out information source
-        #self._businfo = BusData('service.urls')
-        #self._busesListModel.setBuses(buses)
+        self._businfo = BusData('service.urls')
 
     def _runtimer(self, state):
         if state:
@@ -172,6 +171,7 @@ class MainWindow(QtGui.QMainWindow):
         buses = []
         for x in data:
             buses.append(Bus(x[0], x[1], x[2]))
+        print buses
         self._busesListModel.setBuses(buses)
         print "Data updated"
 
