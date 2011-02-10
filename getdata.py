@@ -68,6 +68,10 @@ class BusData:
                     timenow = datetime.now()
                     #print "replacing with %s:%s" % (hr, mins)
                     arrive = timenow.replace(hour = hr, minute = mins)
+                    if arrive < timenow:
+                        print "day advance %s" % (arrive)
+                        td = timedelta(days=1)
+                        arrive += td
                     #print arrive
                 count += 1
                 times.append((busnum, destination, arrive))
